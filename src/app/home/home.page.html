@@ -1,0 +1,68 @@
+
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Contactos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+
+    <h1>Agregar Contacto</h1>
+    <ion-item>
+      <ion-label>Nombre:</ion-label>
+      <ion-input [(ngModel)]="name" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefono:</ion-label>
+      <ion-input type="number" [(ngModel)]="movil_number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Correo electrónico:</ion-label>
+      <ion-input [(ngModel)]="Email" type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Notas:</ion-label>
+      <ion-input [(ngModel)]="notas" type="text"></ion-input>
+    </ion-item>
+
+    <h4 *ngIf = 'name == "" || movil_number <= 0 || Email==""' >Contactos</h4>
+    <div>
+      <ion-button (click)="addName()" >
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div>
+      <h2 *ngIf="namesList.length === 0">No se han añadido contactos</h2>
+    </div>
+
+
+
+    <ion-card>
+      <ion-item  *ngFor="let nameAux of namesList;let i = index"  [ngClass]='nameAux.stock <= 10 ? "restock":""'>
+        <ion-card-header>
+          <ion-card-subtitle>{{nameAux.movil_number}}</ion-card-subtitle>
+          <ion-card-title>{{nameAux.nombre}}</ion-card-title>
+          <ion-card-subtitle >{{nameAux.Email}}</ion-card-subtitle>
+          <ion-card-subtitle *ngIf="ocultar">{{nameAux.notas}}</ion-card-subtitle>
+          <ion-button class="btnx" (click)="eliminarName(i)">X</ion-button>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+  </div>
+</ion-content>
+<script type="module">
+  import { alertController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+  window.alertController = alertController;
+</script>
